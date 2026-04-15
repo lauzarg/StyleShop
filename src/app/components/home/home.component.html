@@ -1,0 +1,29 @@
+<section class="hero-section mb-5">
+  <div class="hero-content">
+    <div class="container text-center text-white">
+      <h1 class="display-4 fw-bold mb-3">¡Bienvenido a StyleShop!</h1>
+      <p class="lead mb-4">Tu tienda online de ropa funcional y deportiva de calidad</p>
+      <a href="/shop" class="btn btn-primary btn-lg">Explorar Catálogo</a>
+    </div>
+  </div>
+</section>
+
+<div class="container my-5">
+  <h2 class="text-center mb-5">Productos Destacados</h2>
+  
+  <div class="row g-4">
+    <div class="col-md-4" *ngFor="let product of featuredProducts">
+      <div class="card h-100 product-card">
+        <img [src]="product.image" class="card-img-top" [alt]="product.name">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text text-muted">{{ product.description }}</p>
+          <h6 class="card-price">${{ product.price | number:'1.2-2' }}</h6>
+        </div>
+        <div class="card-footer bg-white border-top-0">
+          <a href="/shop" class="btn btn-outline-primary w-100">Ver Catálogo Completo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

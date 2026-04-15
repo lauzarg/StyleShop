@@ -1,0 +1,93 @@
+<div class="container my-5">
+  <h1 class="mb-4">Mi Carrito</h1>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div *ngIf="(cartItems$ | async) as items">
+        <div *ngIf="items.length === 0" class="alert alert-info">
+          <p>Tu carrito está vacío.</p>
+          <a href="/shop" class="btn btn-primary">Continuar Comprando</a>
+        </div>
+
+        <div *ngIf="items.length > 0">
+          <div class="cart-items">
+            <div class="cart-item" *ngFor="let item of items">
+              <div class="row align-items-center">
+                <div class="col-md-3">
+                  <img [src]="item.product.image" [alt]="item.product.name" class="img-fluid">
+                </div>
+                <div class="col-md-3">
+                  <h6>{{ item.product.name }}</h6>
+                  <small class="text-muted">${{ item.product.price }}</small>
+                </div>
+                <div class="col-md-2">
+                  <div class="input-group">
+                    <button class="btn btn-sm btn-outline-secondary" 
+                      (click)="updateQuantity(item.product.id, item.quantity - 1)">
+                      -
+                    </button>
+                    <input type="text" class="form-control" value="{{ item.quantity }}" readonly>
+                    <button class="btn btn-sm btn-outline-secondary" 
+                      (click)="updateQuantity(item.product.id, item.quantity + 1)">
+                      +
+                    </button>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <strong>${{ item.product.price * item.quantity | number:'1.2-2' }}</strong>
+                </div>
+                <div class="col-md-2">
+                  <button class="btn btn-sm btn-danger" 
+                    (click)="removeFromCart(item.product.id)">
+                    Eliminar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <button class="btn btn-outline-danger" (click)="clearCart()">
+              Vaciar Carrito
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Resumen de Compra</h5>
+          <div *ngIf="(cartItems$ | async) as items">
+            <div class="row mb-3">
+              <div class="col">Subtotal:</div>
+              <div class="col text-end">
+                ${{ totalPrice$ | async | number:'1.2-2' }}
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col">Envío:</div>
+              <div class="col text-end">Gratis</div>
+            </div>
+            <hr>
+            <div class="row mb-3">
+              <div class="col"><strong>Total:</strong></div>
+              <div class="col text-end">
+                <div *ngIf="totalPrice$ | async as total">
+                  ${{ total | number:'1.2-2' }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn-primary w-100" 
+            [disabled]="!(cartItems$ | async)?.length"
+            (click)="checkout()">
+            Proceder al Pago
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
