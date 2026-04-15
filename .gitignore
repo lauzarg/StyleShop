@@ -1,8 +1,5 @@
+node_modules
+.angular/cache
 node_modules/
 dist/
-.angular/
-*.log
-.DS_Store
 .vscode/
-.idea/
-out-tsc/
