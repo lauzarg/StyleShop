@@ -1,0 +1,162 @@
+<div class="container my-5">
+  <h1 class="mb-4">Checkout</h1>
+
+  <!-- Formulario de checkout -->
+  <div class="row" *ngIf="!checkoutSuccess">
+    <!-- Formulario -->
+    <div class="col-md-7">
+      <div class="card checkout-card mb-4">
+        <div class="card-body">
+          <h5 class="card-title mb-4">
+            <i class="bi bi-person-fill"></i> Datos de Envío
+          </h5>
+
+          <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+            <!-- Nombre -->
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre Completo</label>
+              <input
+                type="text"
+                class="form-control"
+                id="nombre"
+                formControlName="nombre"
+                placeholder="Ingresá tu nombre completo"
+                [class.is-invalid]="f['nombre'].touched && f['nombre'].errors"
+                [class.is-valid]="f['nombre'].touched && !f['nombre'].errors">
+              <div class="invalid-feedback" *ngIf="f['nombre'].touched && f['nombre'].errors">
+                <span *ngIf="f['nombre'].errors?.['required']">El nombre es obligatorio.</span>
+                <span *ngIf="f['nombre'].errors?.['minlength']">El nombre debe tener al menos 2 caracteres.</span>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                formControlName="email"
+                placeholder="tu@email.com"
+                [class.is-invalid]="f['email'].touched && f['email'].errors"
+                [class.is-valid]="f['email'].touched && !f['email'].errors">
+              <div class="invalid-feedback" *ngIf="f['email'].touched && f['email'].errors">
+                <span *ngIf="f['email'].errors?.['required']">El email es obligatorio.</span>
+                <span *ngIf="f['email'].errors?.['email']">Ingresá un email válido.</span>
+              </div>
+            </div>
+
+            <!-- Dirección -->
+            <div class="mb-4">
+              <label for="direccion" class="form-label">Dirección de Envío</label>
+              <textarea
+                class="form-control"
+                id="direccion"
+                formControlName="direccion"
+                rows="3"
+                placeholder="Calle, número, piso, departamento, ciudad"
+                [class.is-invalid]="f['direccion'].touched && f['direccion'].errors"
+                [class.is-valid]="f['direccion'].touched && !f['direccion'].errors"></textarea>
+              <div class="invalid-feedback" *ngIf="f['direccion'].touched && f['direccion'].errors">
+                <span *ngIf="f['direccion'].errors?.['required']">La dirección es obligatoria.</span>
+                <span *ngIf="f['direccion'].errors?.['minlength']">La dirección debe tener al menos 5 caracteres.</span>
+              </div>
+            </div>
+
+            <!-- Botón de pago -->
+            <button
+              type="submit"
+              class="btn btn-primary btn-lg w-100 pay-btn"
+              [disabled]="isProcessing">
+              <span *ngIf="!isProcessing">
+                <i class="bi bi-bag-check"></i> Finalizar Compra
+              </span>
+              <span *ngIf="isProcessing">
+                <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                Procesando compra...
+              </span>
+            </button>
+
+            <div class="alert alert-danger mt-3" *ngIf="checkoutError">
+              <i class="bi bi-exclamation-triangle"></i> {{ checkoutError }}
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <a routerLink="/cart" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Volver al Carrito
+      </a>
+    </div>
+
+    <!-- Resumen del pedido -->
+    <div class="col-md-5">
+      <div class="card summary-card">
+        <div class="card-body">
+          <h5 class="card-title mb-4">
+            <i class="bi bi-receipt"></i> Resumen del Pedido
+          </h5>
+
+          <div class="order-items">
+            <div class="order-item" *ngFor="let item of cartItems">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <h6 class="mb-1">{{ item.product.name }}</h6>
+                  <small class="text-muted">Cantidad: {{ item.quantity }} × ${{ item.product.price | number:'1.2-2' }}</small>
+                </div>
+                <strong>${{ item.product.price * item.quantity | number:'1.2-2' }}</strong>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+
+          <div class="d-flex justify-content-between mb-2">
+            <span>Subtotal:</span>
+            <span>${{ totalPrice | number:'1.2-2' }}</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span>Envío:</span>
+            <span class="text-success">Gratis</span>
+          </div>
+          <hr>
+          <div class="d-flex justify-content-between total-row">
+            <strong>Total:</strong>
+            <strong class="total-price">${{ totalPrice | number:'1.2-2' }}</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirmación de compra exitosa -->
+  <div class="row" *ngIf="checkoutSuccess && checkoutResponse">
+    <div class="col-md-8 mx-auto">
+      <div class="card success-card text-center">
+        <div class="card-body py-5">
+          <div class="success-icon mb-4">
+            <i class="bi bi-check-circle-fill"></i>
+          </div>
+          <h2 class="mb-3">¡Compra Exitosa!</h2>
+          <p class="lead text-muted mb-4">{{ checkoutResponse.mensaje }}</p>
+
+          <div class="order-details mb-4">
+            <div class="row">
+              <div class="col-md-6">
+                <p><strong>N° Operación:</strong><br>{{ checkoutResponse.operacionId }}</p>
+              </div>
+              <div class="col-md-6">
+                <p><strong>CAE (Factura ARCA):</strong><br>{{ checkoutResponse.cae }}</p>
+              </div>
+            </div>
+            <p class="text-muted small">Vencimiento CAE: {{ checkoutResponse.vencimientoCae }}</p>
+          </div>
+
+          <button class="btn btn-primary btn-lg" (click)="goToHome()">
+            <i class="bi bi-house"></i> Volver al Inicio
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

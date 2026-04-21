@@ -1,0 +1,58 @@
+<div class="container my-5" *ngIf="product">
+  <div class="row">
+    <!-- Imagen grande -->
+    <div class="col-md-6">
+      <div class="product-image-container">
+        <img [src]="product.image" [alt]="product.name" class="img-fluid product-image">
+      </div>
+    </div>
+
+    <!-- Información del producto -->
+    <div class="col-md-6">
+      <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+          <li class="breadcrumb-item"><a routerLink="/shop">Shop</a></li>
+          <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+        </ol>
+      </nav>
+
+      <h1 class="product-title">{{ product.name }}</h1>
+      
+      <span class="badge bg-secondary mb-3 category-badge">{{ product.category }}</span>
+
+      <p class="product-description">{{ product.description }}</p>
+
+      <h2 class="product-price">${{ product.price | number:'1.2-2' }}</h2>
+
+      <div class="mt-4">
+        <button class="btn btn-primary btn-lg add-to-cart-btn" (click)="addToCart()">
+          <i class="bi bi-cart-plus"></i> Agregar al Carrito
+        </button>
+
+        <div class="alert alert-success mt-3 added-alert" *ngIf="addedToCart">
+          <i class="bi bi-check-circle"></i> ¡Producto agregado al carrito!
+        </div>
+      </div>
+
+      <hr class="my-4">
+
+      <div class="d-flex gap-3">
+        <a routerLink="/shop" class="btn btn-outline-secondary">
+          <i class="bi bi-arrow-left"></i> Volver al Catálogo
+        </a>
+        <a routerLink="/cart" class="btn btn-outline-primary">
+          <i class="bi bi-cart"></i> Ver Carrito
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Producto no encontrado -->
+<div class="container my-5 text-center" *ngIf="!product">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Cargando...</span>
+  </div>
+  <p class="mt-3 text-muted">Cargando producto...</p>
+</div>

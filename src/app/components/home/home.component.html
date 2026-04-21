@@ -3,7 +3,7 @@
     <div class="container text-center text-white">
       <h1 class="display-4 fw-bold mb-3">¡Bienvenido a StyleShop!</h1>
       <p class="lead mb-4">Tu tienda online de ropa funcional y deportiva de calidad</p>
-      <a href="/shop" class="btn btn-primary btn-lg">Explorar Catálogo</a>
+      <a routerLink="/shop" class="btn btn-primary btn-lg">Explorar Catálogo</a>
     </div>
   </div>
 </section>
@@ -14,16 +14,28 @@
   <div class="row g-4">
     <div class="col-md-4" *ngFor="let product of featuredProducts">
       <div class="card h-100 product-card">
-        <img [src]="product.image" class="card-img-top" [alt]="product.name">
+        <a [routerLink]="['/product', product.id]" class="card-img-link">
+          <img [src]="product.image" class="card-img-top" [alt]="product.name">
+        </a>
         <div class="card-body">
-          <h5 class="card-title">{{ product.name }}</h5>
+          <h5 class="card-title">
+            <a [routerLink]="['/product', product.id]" class="product-link">{{ product.name }}</a>
+          </h5>
           <p class="card-text text-muted">{{ product.description }}</p>
           <h6 class="card-price">${{ product.price | number:'1.2-2' }}</h6>
         </div>
         <div class="card-footer bg-white border-top-0">
-          <a href="/shop" class="btn btn-outline-primary w-100">Ver Catálogo Completo</a>
+          <div class="d-flex gap-2">
+            <button class="btn btn-primary flex-grow-1" (click)="addToCart(product)">
+              <i class="bi bi-cart-plus"></i> Agregar al Carrito
+            </button>
+            <a [routerLink]="['/product', product.id]" class="btn btn-outline-primary">
+              <i class="bi bi-eye"></i>
+            </a>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+

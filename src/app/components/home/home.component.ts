@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
+import { CartService } from '../../services/cart.service';
 import { Product } from '../../models/product.model';
 import { Observable } from 'rxjs';
 
@@ -12,7 +13,10 @@ export class HomeComponent implements OnInit {
   products$: Observable<Product[]>;
   featuredProducts: Product[] = [];
 
-  constructor(private productService: ProductService) {
+  constructor(
+    private productService: ProductService,
+    private cartService: CartService
+  ) {
     this.products$ = this.productService.getProducts();
   }
 
@@ -21,4 +25,9 @@ export class HomeComponent implements OnInit {
       this.featuredProducts = products.slice(0, 3);
     });
   }
+
+  addToCart(product: Product): void {
+    this.cartService.addToCart(product);
+  }
 }
+

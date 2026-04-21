@@ -1,0 +1,125 @@
+.checkout-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.summary-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 80px;
+}
+
+.card-title {
+  font-weight: bold;
+  color: #333;
+}
+
+.card-title i {
+  color: #667eea;
+  margin-right: 8px;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #555;
+}
+
+.form-control:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.pay-btn {
+  background-color: #667eea;
+  border-color: #667eea;
+  padding: 14px;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.pay-btn:hover:not(:disabled) {
+  background-color: #764ba2;
+  border-color: #764ba2;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.pay-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.order-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.order-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.order-item:last-child {
+  border-bottom: none;
+}
+
+.total-row {
+  font-size: 1.2rem;
+}
+
+.total-price {
+  color: #667eea;
+  font-size: 1.3rem;
+}
+
+/* Confirmación exitosa */
+.success-card {
+  border: 2px solid #28a745;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(40, 167, 69, 0.15);
+}
+
+.success-icon {
+  font-size: 5rem;
+  color: #28a745;
+  animation: scaleIn 0.5s ease;
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.order-details {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.btn-outline-secondary {
+  transition: all 0.3s ease;
+}
+
+.btn-outline-secondary:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background-color: #667eea;
+  border-color: #667eea;
+}
+
+.btn-primary:hover {
+  background-color: #764ba2;
+  border-color: #764ba2;
+}
