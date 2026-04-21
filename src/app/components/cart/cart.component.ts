@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 import { CartItem } from '../../models/product.model';
 import { Observable } from 'rxjs';
@@ -12,7 +13,10 @@ export class CartComponent implements OnInit {
   cartItems$: Observable<CartItem[]>;
   totalPrice$: Observable<number>;
 
-  constructor(private cartService: CartService) {
+  constructor(
+    private cartService: CartService,
+    private router: Router
+  ) {
     this.cartItems$ = this.cartService.getCartItems();
     this.totalPrice$ = this.cartService.getTotalPrice();
   }
@@ -33,7 +37,7 @@ export class CartComponent implements OnInit {
   }
 
   checkout(): void {
-    alert('¡Gracias por tu compra! Este es un demo. La compra no se procesó.');
-    this.clearCart();
+    this.router.navigate(['/checkout']);
   }
 }
+

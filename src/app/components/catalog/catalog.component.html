@@ -34,16 +34,25 @@
       <div class="row g-4">
         <div class="col-md-4 col-sm-6" *ngFor="let product of filteredProducts">
           <div class="card h-100 product-card">
-            <img [src]="product.image" class="card-img-top" [alt]="product.name">
+            <a [routerLink]="['/product', product.id]" class="card-img-link">
+              <img [src]="product.image" class="card-img-top" [alt]="product.name">
+            </a>
             <div class="card-body">
-              <h5 class="card-title">{{ product.name }}</h5>
+              <h5 class="card-title">
+                <a [routerLink]="['/product', product.id]" class="product-link">{{ product.name }}</a>
+              </h5>
               <p class="card-text text-muted small">{{ product.description }}</p>
               <h6 class="card-price mb-3">${{ product.price | number:'1.2-2' }}</h6>
             </div>
             <div class="card-footer bg-white border-top-0">
-              <button class="btn btn-primary w-100" (click)="addToCart(product)">
-                <i class="bi bi-plus-circle"></i> Agregar al Carrito
-              </button>
+              <div class="d-flex gap-2">
+                <button class="btn btn-primary flex-grow-1" (click)="addToCart(product)">
+                  <i class="bi bi-plus-circle"></i> Agregar al Carrito
+                </button>
+                <a [routerLink]="['/product', product.id]" class="btn btn-outline-primary">
+                  <i class="bi bi-eye"></i>
+                </a>
+              </div>
             </div>
           </div>
         </div>

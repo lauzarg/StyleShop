@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="/">
-      <img src="assets/logo.png" alt="StyleShop" width="40" height="40" class="d-inline-block align-text-top me-2">
+    <a class="navbar-brand fw-bold" routerLink="/">
+      <img src="assets/images/logo.webp" alt="StyleShop" class="navbar-logo me-2">
       StyleShop
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -11,13 +11,13 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/shop">Shop</a>
+          <a class="nav-link" routerLink="/shop" routerLinkActive="active">Shop</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/cart">
+          <a class="nav-link" routerLink="/cart" routerLinkActive="active">
             <i class="bi bi-cart"></i>
             Cart
             <span class="badge bg-danger" *ngIf="(totalItems$ | async) as total">

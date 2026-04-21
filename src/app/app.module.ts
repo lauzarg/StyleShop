@@ -6,7 +6,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { CartComponent } from './components/cart/cart.component';
-import { FormsModule } from '@angular/forms';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,14 +17,19 @@ import { FormsModule } from '@angular/forms';
     NavbarComponent,
     HomeComponent,
     CatalogComponent,
-    CartComponent
+    CartComponent,
+    ProductDetailComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
