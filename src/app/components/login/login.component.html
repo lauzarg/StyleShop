@@ -1,0 +1,29 @@
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Iniciar Sesión</h2>
+          <form (ngSubmit)="onLogin()">
+            <div class="mb-3" *ngIf="stage === 'email'">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" required>
+            </div>
+
+            <div class="mb-3" *ngIf="stage === 'otp'">
+              <label for="otp" class="form-label">Código OTP</label>
+              <input type="text" class="form-control" id="otp" [(ngModel)]="otp" name="otp" required>
+            </div>
+
+            <div class="d-grid gap-2">
+              <button *ngIf="stage === 'email'" type="button" class="btn btn-primary" (click)="sendOtp()">Enviar OTP</button>
+              <button *ngIf="stage === 'otp'" type="submit" class="btn btn-success">Ingresar</button>
+              <button *ngIf="stage === 'otp'" type="button" class="btn btn-link" (click)="backToEmail()">Volver</button>
+            </div>
+          </form>
+          <p class="text-center mt-3">Demo: OTP simulado se muestra en un alert.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
